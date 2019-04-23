@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { injectGlobal } from 'styled-components';
 
-// import 'font-awesome/css/font-awesome.css';
+import 'font-awesome/css/font-awesome.css';
 
 injectGlobal`
   * {
