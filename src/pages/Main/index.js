@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 import api from '../../services/api';
 
@@ -18,10 +19,12 @@ export default class Main extends Component {
 
     try {
       const { repositoryInput, repositories } = this.state;
-      const response = await api.get(`/repos/${repositoryInput}`);
+      const { data: repository } = await api.get(`/repos/${repositoryInput}`);
+      repository.lastCommit = moment(repository.pushed_at).fromNow();
+
       this.setState({
         repositoryInput: '',
-        repositories: [...repositories, response.data],
+        repositories: [...repositories, repository],
       });
     } catch (err) {
       console.log(err);
@@ -30,7 +33,6 @@ export default class Main extends Component {
 
   render() {
     const { repositories, repositoryInput } = this.state;
-
     return (
       <Container>
         <img src={logo} alt="Github Compare" />
